@@ -1,22 +1,84 @@
-import { View, Text, SafeAreaView } from 'react-native'
-import React from 'react'
+import { View, Text, SafeAreaView, FlatList, StyleSheet, RefreshControl} from 'react-native'
+import React, { useEffect, useState } from 'react'
 import theme from '../../style'
+import {images} from '../../constants'
+import SearchInput from '../../components/SearchInput'
+import Trending from '../../components/Trending'
 import EmptyState from '../../components/EmptyState'
+import { getAllPosts, getLatestPosts } from '../../lib/appwrite'
+import useAppWrite from '../../lib/useAppWrite'
+import VideoCard from '../../components/VideoCard'
+import { useGlobalContext } from '../../context/GlobalProvider'
 
 const Bookmark = () => {
-  return (
-    <SafeAreaView style={{height:"100%", backgroundColor:theme.colors.primary, alignContent:'center', justifyContent:'center'}}>
-      <View style={{justifyContent:'center', alignItems:'center', paddingHorizontal:8}}>
-          <Text style={{fontFamily:'Poppins-SemiBold', color:theme.colors.white.DEFAULT, fontSize:24}}>
-              Cooming Soon
-          </Text>
-          <Text style={{fontFamily:'Poppins-Medium', color:theme.colors.gray[100], fontSize:14}}>
-              On Progress...
-          </Text>
 
-      </View>
+  const {data:posts, refetch} = useAppWrite(getAllPosts);
+  const {data:latestPosts} = useAppWrite(getLatestPosts);
+  const [refreshing, setRefreshing] = useState(false);
+  const {user, setUser, setIsLoggedIn} = useGlobalContext();
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await refetch();
+    setRefreshing(false);
+  }
+
+  // console.log(posts)
+
+  return (
+    <SafeAreaView style={{backgroundColor:theme.colors.primary, height:'100%'}}>
+      <FlatList
+        style={{marginTop: 50}}
+        data={posts}
+        keyExtractor={(item) => item.$id}
+        renderItem={({item}) => (
+          <VideoCard video={item}/>
+        )}
+
+        ListHeaderComponent={() => (
+          <View style={{marginVertical:20, paddingHorizontal:16, gap:24}}>
+
+            <View style={{justifyContent:'space-between', alignItems:'flex-start', flexDirection:'row', marginBottom:5}}>
+              <View>
+                <Text style={{fontFamily:'Poppins-Bold', color:theme.colors.secondary.DEFAULT, fontSize:24, marginBottom:-20}}>
+                  SmartLab
+                </Text>
+              </View>
+            </View>
+
+            <View style={styles.separator} />
+              
+            {/* <SearchInput/> */}
+
+            <View style={{width:'100%', flex:1, paddingTop:5, paddingBottom:8, marginTop:-30}}>
+              <Text style={{color:theme.colors.secondary.DEFAULT, fontSize:15, fontFamily:'Poppins-Regular', marginBottom:3}}>
+                Latest Videos
+              </Text>
+
+              <Trending posts ={latestPosts ?? []}/>
+            </View>
+          </View>
+        )}
+
+        ListEmptyComponent={() => (
+          <EmptyState
+            title = "No videos found"
+            subtitle = "Be the first one to uploud a video"
+          />
+        )}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}
+
+      />
     </SafeAreaView>
   )
 }
+
+const styles = StyleSheet.create({
+  separator: {
+    height: 1, // Menentukan tinggi garis
+    backgroundColor: theme.colors.secondary[200], // Warna garis
+    marginVertical: 20, // Jarak di atas dan bawah garis
+  },
+});
 
 export default Bookmark

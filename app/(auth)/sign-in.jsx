@@ -1,12 +1,12 @@
 import { View, Text, ScrollView, Image, StyleSheet, Alert } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {SafeAreaView} from 'react-native-safe-area-context'
 import { images } from "../../constants"
 import theme from '../../style'
 import FormField from '../../components/FormField'
 import CustomButton from '../../components/CustomButton'
 import { Link, router } from 'expo-router'
-import { getCurrentUser, signIn } from '../../lib/appwrite'
+import { getAccount, getCurrentUser, signIn } from '../../lib/appwrite'
 import { useGlobalContext } from '../../context/GlobalProvider';
 
 
@@ -20,39 +20,62 @@ const SignIn = () => {
   })
 
   const submit = async () => {
-    if(!form.email || !form.password) {
-      Alert.alert('Error', 'Please fill all fields')
+    if (!form.email || !form.password) {
+        Alert.alert('Error', 'Please fill all fields');
+        return;
     }
 
     setIsSubmitting(true);
-    
-    try{
-      await signIn(form.email, form.password);
-      const result = await getCurrentUser();
-      setUser(result);
-      setIsLoggedIn(true);
-
-      Alert.alert('Success', 'Logged in successfully');
-      router.replace('/home')
-
-    } catch (error){
-      Alert.alert('Error', error.message) 
-
+    try {
+        const session = await signIn(form.email, form.password);
+        if (session) {
+            const result = await getCurrentUser();
+            setUser(result);
+            setIsLoggedIn(true);
+            Alert.alert('Success', 'Logged in successfully');
+            router.replace('/home');
+        } else {
+            throw new Error('Failed to create session.');
+        }
+    } catch (error) {
+        Alert.alert('Error', error.message);
     } finally {
-      setIsSubmitting(false);
+        setIsSubmitting(false);
     }
-  }
+};
+
+
+  // Pake ini kalo kejebak di activesession
+
+  // const [isCheckingSession, setIsCheckingSession] = useState(true);
+
+  // useEffect(() => {
+  //   const checkSession = async () => {
+  //     try {
+  //       const currentAccount = await getAccount();
+  //       if (currentAccount) {
+  //         // Jika sesi aktif, arahkan ke halaman home
+  //         router.replace('/home');
+  //       }
+  //     } catch (error) {
+  //       console.log('No active session:', error.message);
+  //     } finally {
+  //       setIsCheckingSession(false);
+  //     }
+  //   };
+
+  //   checkSession();
+  // }, []);
 
   return (
     <SafeAreaView style={{backgroundColor:theme.colors.primary, height:'100%'}}>
       <ScrollView>
         <View style={styles.container}>
-          <Image
-            source={images.logo}
-            style={styles.logo}
-          />
+          <Text style={{fontSize: 30, color: theme.colors.secondary.DEFAULT, fontFamily:'Poppins-Bold'}}>
+            SmartLab
+          </Text>
           <Text style={styles.text}>
-            Log in to Aora
+            Log in to SmartLab
           </Text>
           <FormField
             title = "Email"
@@ -76,10 +99,10 @@ const SignIn = () => {
           />
 
           <View style={{justifyContent:'center', paddingTop:10, flexDirection:'row', gap:2}}>
-            <Text style={{color:theme.colors.gray[100], fontSize:15, fontFamily:'Poppins-Regular'}}>
+            <Text style={{color:theme.colors.black.DEFAULT, fontSize:15, fontFamily:'Poppins-Regular'}}>
               Don't have account? {''}
             </Text>
-            <Link href="/sign-up" style={{color:theme.colors.secondary.DEFAULT, fontSize:15, fontFamily:'Poppins-Regular'}}>
+            <Link href="/sign-up" style={{color:theme.colors.secondary[200], fontSize:15, fontFamily:'Poppins-SemiBold'}}>
               Sign Up
             </Link>
           </View>
@@ -105,7 +128,7 @@ const styles = StyleSheet.create({
   },
   text:{
     fontSize:22,
-    color: theme.colors.white.DEFAULT,
+    color: theme.colors.black.DEFAULT,
     fontFamily: 'Poppins-SemiBold',
     marginTop:30,
   }

@@ -26,8 +26,8 @@ const TabsLayout = () => {
         screenOptions={{
           tabBarShowLabel: false,
           tabBarStyle: styles.tabBar,
-          tabBarActiveTintColor: theme.colors.orange.DEFAULT,
-          tabBarInactiveTintColor: theme.colors.gray[100],
+          tabBarActiveTintColor: theme.colors.primary,
+          tabBarInactiveTintColor: theme.colors.tabbaroff,
         }}
       >
         <Tabs.Screen
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     height: 60, 
     paddingTop: 5, 
     paddingBottom: 5, 
-    backgroundColor: theme.colors.tabbar, 
+    backgroundColor: theme.colors.secondary.DEFAULT, 
     borderTopWidth: 0,
     borderTopColor: '#232533',
   },
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   },
   textFocused: {
     fontFamily: 'Poppins-SemiBold',
-    color: theme.colors.orange.DEFAULT, 
+    color: theme.colors.primary, 
   },
   textRegular: {
     fontFamily: 'Poppins-Light',

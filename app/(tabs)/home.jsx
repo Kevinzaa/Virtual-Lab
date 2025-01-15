@@ -1,87 +1,118 @@
-import { View, Text, SafeAreaView, FlatList, Image, RefreshControl} from 'react-native'
-import React, { useEffect, useState } from 'react'
-import theme from '../../style'
-import {images} from '../../constants'
-import SearchInput from '../../components/SearchInput'
-import Trending from '../../components/Trending'
-import EmptyState from '../../components/EmptyState'
-import { getAllPosts, getLatestPosts } from '../../lib/appwrite'
-import useAppWrite from '../../lib/useAppWrite'
-import VideoCard from '../../components/VideoCard'
-import { useGlobalContext } from '../../context/GlobalProvider'
+import {
+  View,
+  Text,
+  SafeAreaView,
+  ScrollView,
+  RefreshControl,
+  StyleSheet,
+} from "react-native";
+import React, { useState } from "react";
+import theme from "../../style";
+import { images } from "../../constants";
+import SearchInput from "../../components/SearchInput";
+import CustomButton from "../../components/CustomButton";
+import CourseCard from "../../components/CourseCard"; // Import CourseCard
+import { router } from "expo-router";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const Home = () => {
-
-  const {data:posts, refetch} = useAppWrite(getAllPosts);
-  const {data:latestPosts} = useAppWrite(getLatestPosts);
   const [refreshing, setRefreshing] = useState(false);
   const {user, setUser, setIsLoggedIn} = useGlobalContext();
 
   const onRefresh = async () => {
     setRefreshing(true);
-    await refetch();
+    // Call refetch or any other logic
     setRefreshing(false);
-  }
+  };
 
-  // console.log(posts)
+  // Get current date
+  const today = new Date();
+  const formattedDate = today.toLocaleDateString("en-US", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
 
   return (
-    <SafeAreaView style={{backgroundColor:theme.colors.primary, height:'100%'}}>
-      <FlatList
-        style={{marginTop: 50}}
-        // data={[]}
-        data={posts}
-        keyExtractor={(item) => item.$id}
-        renderItem={({item}) => (
-          <VideoCard video={item}/>
-          // <Text style={{fontSize:25, color:theme.colors.white.DEFAULT}}>{item.title}</Text>
-        )}
+    <SafeAreaView style={{ backgroundColor: theme.colors.primary, height: "100%" }}>
+      <ScrollView
+        contentContainerStyle={{ paddingHorizontal: 16, paddingVertical: 20 }}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+      >
+        {/* Header Section */}
+        <View style={{ marginBottom: 20, marginTop: 40 }}>
+          <Text style={{ fontFamily: "Poppins-Medium", color: theme.colors.secondary.DEFAULT, fontSize: 14 }}>
+            Welcome Back
+          </Text>
+          <Text style={{ fontFamily: "Poppins-SemiBold", color: theme.colors.secondary.DEFAULT, fontSize: 24 }}>
+            {user?.username}
+          </Text>
+          <Text style={{ fontFamily: "Poppins-Regular", color: theme.colors.secondary.LIGHT, fontSize: 14, marginTop: 4,marginBottom:-20 }}>
+            {formattedDate}
+          </Text>
+        </View>
 
-        ListHeaderComponent={() => (
-          <View style={{marginVertical:24, paddingHorizontal:16, gap:24}}>
+        <View style={styles.separator} />
 
-            <View style={{justifyContent:'space-between', alignItems:'flex-start', flexDirection:'row', marginBottom:5}}>
-              <View>
-                <Text style={{fontFamily:'Poppins-Medium', color:theme.colors.gray[100], fontSize:14}}>
-                  Welcome Back
-                </Text>
-                <Text style={{fontFamily:'Poppins-SemiBold', color:theme.colors.white.DEFAULT, fontSize:24}}>
-                  Kevinza
-                </Text>
-              </View>
 
-              <View style={{marginTop:8}}>
-                <Image
-                  source={images.logoSmall}
-                  style={{width: 50, height: 50}}
-                  resizeMode='contain'
-                />
-              </View>
-            </View>
-              
-            <SearchInput/>
+        {/* Search Section */}
+        <SearchInput />
 
-            <View style={{width:'100%', flex:1, paddingTop:5, paddingBottom:8}}>
-              <Text style={{color:theme.colors.gray[100], fontSize:15, fontFamily:'Poppins-Regular', marginBottom:3}}>
-                Latest Videos
-              </Text>
+        {/* Quote Section */}
+        <View style={{ backgroundColor: theme.colors.secondary.DARK, padding: 15, borderRadius: 10, marginVertical: 20 }}>
+          <Text style={{ color: theme.colors.secondary.DEFAULT, fontFamily: "Poppins-Light", fontSize: 16 }}>
+            "The roots of education are bitter, but the fruit is sweet." – Aristotle
+          </Text>
+        </View>
 
-              <Trending posts ={latestPosts ?? []}/>
-            </View>
-          </View>
-        )}
+        {/* Recommended Courses Section */}
+        <View style={{ marginBottom: 20 }}>
+          <Text
+            style={{
+              fontFamily: "Poppins-SemiBold",
+              color: theme.colors.secondary.DEFAULT,
+              fontSize: 18,
+              marginBottom: 10,
+            }}
+          >
+            Recommended Courses
+          </Text>
 
-        ListEmptyComponent={() => (
-          <EmptyState
-            title = "No videos found"
-            subtitle = "Be the first one to uploud a video"
+          {/* Course Cards */}
+          <CourseCard
+            imageSource={images.kimia} 
+            courseTitle="Kimia Dasar"
+            deskripsi= "Mempelajari tentang struktur, sifat, dan reaksi kimia"
+            navigateTo="../course/kimia"
           />
-        )}
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}
+          <CourseCard
+            imageSource={images.python}
+            courseTitle="Pengenalan Komputasi"
+            deskripsi = "Memberikan pemahaman tentang dasar ilmu komputer"
+            navigateTo="../course/pengkom" 
+          />
+          <CourseCard
+            imageSource={images.fisika} 
+            courseTitle="Fisika Dasar"
+            deskripsi= "Mempelajari konsep dasar tentang gerak, energi, dan gaya"
+            navigateTo="../course/fisika" 
+          />
+        </View>
 
-      />
+        {/* Action Button */}
+        <CustomButton title="Explore Videos" handlePress={() => router.push("/(tabs)/bookmark")} isLoading={false} />
+      </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default Home
+const styles = StyleSheet.create({
+  separator: {
+    height: 1, // Menentukan tinggi garis
+    backgroundColor: theme.colors.secondary[200], // Warna garis
+    marginVertical: 20, // Jarak di atas dan bawah garis
+  },
+});
+
+export default Home;

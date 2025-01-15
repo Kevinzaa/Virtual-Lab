@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TouchableOpacity, Image, Alert } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, Image, Alert, StyleSheet } from 'react-native'
 import { React, useState } from 'react'
 import {SafeAreaView} from 'react-native-safe-area-context'
 import FormField from '../../components/FormField'
@@ -75,9 +75,11 @@ const Create = () => {
     <SafeAreaView style={{backgroundColor:theme.colors.primary, height:'100%'}}>
       <ScrollView style={{paddingHorizontal:16, paddingVertical:24}}>
         
-        <Text style={{fontSize:24, color:theme.colors.white.DEFAULT, fontFamily:'Poppins-SemiBold'}}>
+        <Text style={{fontSize:24, color:theme.colors.secondary.DEFAULT, fontFamily:'Poppins-SemiBold'}}>
           Upload Video
         </Text>
+
+        <View style={styles.separator} />
 
         <FormField
           title = "Video title"
@@ -90,7 +92,7 @@ const Create = () => {
         />
 
         <View style={{marginTop:14, marginVertical:4}}>
-          <Text style={{fontSize:16, color:theme.colors.gray[100], fontFamily:'Poppins-Medium'}}>
+          <Text style={{fontSize:16, color:theme.colors.secondary.DEFAULT, fontFamily:'Poppins-Medium'}}>
             Upload Video
           </Text>
 
@@ -102,8 +104,8 @@ const Create = () => {
                 resizeMode={ResizeMode.COVER}
               />
             ) : (
-              <View style={{width:'100%', height:160, paddingHorizontal:8, backgroundColor:theme.colors.black[100], borderRadius:12, justifyContent:'center', alignItems:'center'}}>
-                <View style={{width:56, height:56, borderWidth:1, borderStyle:'dashed', borderColor:theme.colors.gray[100], justifyContent:'center', alignItems:'center', borderRadius:12}}>
+              <View style={{width:'100%', height:160, paddingHorizontal:8, backgroundColor:theme.colors.white.DEFAULT, borderColor:theme.colors.secondary[100], borderWidth:1, borderRadius:12, justifyContent:'center', alignItems:'center'}}>
+                <View style={{width:56, height:56, borderWidth:1, borderStyle:'dashed', borderColor:theme.colors.secondary.DEFAULT, justifyContent:'center', alignItems:'center', borderRadius:12}}>
                   <Image 
                     source = {icons.upload}
                     resizeMode = "contain"
@@ -116,7 +118,7 @@ const Create = () => {
         </View>
 
         <View style={{marginTop:28, paddingVertical:8}}>
-          <Text style={{fontSize:16, color:theme.colors.gray[100], fontFamily:'Poppins-Medium'}}>
+          <Text style={{fontSize:16, color:theme.colors.secondary.DEFAULT, fontFamily:'Poppins-Medium'}}>
             Thumbnail Image
           </Text>
 
@@ -133,12 +135,12 @@ const Create = () => {
                   width: '100%',      
                   height: 64,         
                   paddingHorizontal: 16, 
-                  backgroundColor: theme.colors.black[100], 
+                  backgroundColor: theme.colors.white.DEFAULT, 
                   borderRadius: 16,    
                   justifyContent: 'center', 
                   alignItems: 'center',     
-                  borderWidth: 2,    
-                  borderColor: theme.colors.black[200], 
+                  borderWidth: 1,    
+                  borderColor: theme.colors.secondary[100], 
                   flexDirection: 'row', 
                 }}>
                 <Image 
@@ -146,7 +148,7 @@ const Create = () => {
                   resizeMode = "contain"
                   style = {{width:20, height:20}}
                 />
-                <Text style={{fontSize:16, color:theme.colors.gray[100], fontFamily:"Poppins-Medium", marginLeft:10}}>
+                <Text style={{fontSize:16, color:"#6d6d6d", fontFamily:"Poppins-Regular", marginLeft:10}}>
                   Choose a file
                 </Text>
               </View>
@@ -155,9 +157,9 @@ const Create = () => {
         </View>
 
         <FormField
-          title = "AI Prompt"
+          title = "Description"
           value = {form.prompt}
-          placeholder= "The prompt you used to create this video"
+          placeholder= "Description of the video"
           handleChangeText={(e) => setForm({ ...form,
             prompt: e
           })}
@@ -175,5 +177,13 @@ const Create = () => {
     </SafeAreaView>
   )
 }
+
+const styles = StyleSheet.create({
+  separator: {
+    height: 1, // Menentukan tinggi garis
+    backgroundColor: theme.colors.secondary[200], // Warna garis
+    marginVertical: 20, // Jarak di atas dan bawah garis
+  },
+});
 
 export default Create

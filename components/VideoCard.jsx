@@ -21,10 +21,10 @@ const VideoCard = ({video : {title, thumbnail, video, creator:{username, avatar}
             </View>
 
             <View style={{justifyContent:'center', flex:1, marginLeft:12, rowGap:1}}>
-                <Text style={{color:theme.colors.white.DEFAULT, fontFamily:'Poppins-SemiBold', fontSize:14}} numberOfLines={1}>
+                <Text style={{color:theme.colors.secondary.DEFAULT, fontFamily:'Poppins-SemiBold', fontSize:14}} numberOfLines={1}>
                     {title}
                 </Text>
-                <Text style={{fontSize:14, color:theme.colors.gray[100]}} numberOfLines={1}>
+                <Text style={{fontSize:14, color:theme.colors.secondary.DEFAULT}} numberOfLines={1}>
                     {username}
                 </Text>
             </View>

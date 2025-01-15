@@ -1,11 +1,12 @@
 const theme = {
   colors: {
-    primary: "#161622",
+    primary: "#fbfaf9",
     tabbar : "#161616",
+    tabbaroff : "#7f828e",
     secondary: {
-      DEFAULT: "#FF9C01",
-      100: "#FF9001",
-      200: "#FF8E01",
+      DEFAULT: "#1f263c",
+      100: "#cfcfcf",
+      200: "#3a6ea5",
     },
     black: {
       DEFAULT: "#000",
@@ -13,15 +14,16 @@ const theme = {
       200: "#232533",
     },
     gray: {
-      100: "#CDCDE0",
+      100: "#C0c0c0",
     },
     white: {
-      DEFAULT: "#FFF",
+      DEFAULT: "#e7e8ea",
     },
     orange: {
-      DEFAULT: "#FFAA01",
+      DEFAULT: "#FF6700",
     }
   },
+
 };
 
 export default theme;

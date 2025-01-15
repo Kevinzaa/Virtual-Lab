@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
+import theme from "../style";
 
 const InfoBox = ({ title, subtitle, containerStyles, titleStyles }) => {
   return (
@@ -17,13 +18,13 @@ const styles = StyleSheet.create({
   container: {
   },
   title: {
-    color: 'white',
+    color: theme.colors.secondary.DEFAULT,
     textAlign: 'center',
     fontFamily : "Poppins-Bold",
 },
 subtitle: {
     fontSize: 14,
-    color: '#ddd',
+    color: theme.colors.gray,
     textAlign: 'center',
     fontFamily : "Poppins-SemiBold",
   },

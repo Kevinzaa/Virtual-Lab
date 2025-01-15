@@ -21,15 +21,15 @@ const CustomButton = ({ title, handlePress, containerStyles, textStyles, isLoadi
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: theme.colors.orange.DEFAULT,
+    backgroundColor: theme.colors.secondary.DEFAULT,
     paddingVertical: 12,
     paddingHorizontal: 20,
-    borderRadius: 8,
+    borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
   },
   text: {
-    color: theme.colors.black.DEFAULT,
+    color: theme.colors.white.DEFAULT,
     fontSize: 16,
     fontFamily: 'Poppins-SemiBold',
     textAlign: 'center',

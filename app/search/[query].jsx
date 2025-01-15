@@ -38,10 +38,10 @@ const Search = () => {
         ListHeaderComponent={() => (
           <View style={{marginTop:24, paddingHorizontal:16}}>
             
-            <Text style={{fontFamily:'Poppins-Medium', color:theme.colors.gray[100], fontSize:14}}>
+            <Text style={{fontFamily:'Poppins-Medium', color:theme.colors.secondary.DEFAULT, fontSize:14}}>
               Search Results
             </Text>
-            <Text style={{fontFamily:'Poppins-SemiBold', color:theme.colors.white.DEFAULT, fontSize:24}}>
+            <Text style={{fontFamily:'Poppins-SemiBold', color:theme.colors.secondary.DEFAULT, fontSize:24}}>
               {query}
             </Text>
             

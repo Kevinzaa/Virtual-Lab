@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Studifit",
-    "scheme": "studifit",
-    "slug": "studifit",
+    "name": "VirtualLab",
+    "scheme": "virtuallab",
+    "slug": "virtuallab",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

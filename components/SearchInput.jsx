@@ -13,14 +13,13 @@ const SearchInput = ({initialQuery}) => {
       <View
         style={[
           styles.inputContainer,
-          isFocused && { borderColor: theme.colors.orange.DEFAULT }, // Change border color on focus
+          isFocused && { borderColor: theme.colors.secondary.DEFAULT }, // Change border color on focus
         ]}
       >
         <TextInput
           style={styles.input}
           value={query}
           placeholder="Search for a video topic"
-          placeholderTextColor= "#CDCDE0"
           onChangeText={(e) => setQuery(e)}
           onFocus={() => setIsFocused(true)} 
           onBlur={() => setIsFocused(false)} 
@@ -57,24 +56,24 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontWeight: '600',
-    color: theme.colors.white.DEFAULT,
+    color: theme.colors.secondary.DEFAULT,
     marginBottom: 8,
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: theme.colors.black[200], 
+    borderColor: theme.colors.secondary[100], 
     borderRadius: 8,
     paddingHorizontal: 12,
-    backgroundColor: theme.colors.black[100],
+    backgroundColor: theme.colors.white.DEFAULT,
   },
   input: {
     fontSize: 16, 
     marginTop: 2, 
     flex: 1, 
     fontFamily: 'Poppins-Regular', 
-    color: theme.colors.white.DEFAULT,
+    color: theme.colors.black.DEFAULT,
   },
   toggleButton: {
     marginLeft: 8,

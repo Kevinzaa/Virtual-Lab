@@ -22,14 +22,13 @@ const SearchInput = ({
       <View
         style={[
           styles.inputContainer,
-          isFocused && { borderColor: theme.colors.orange.DEFAULT }, // Change border color on focus
+          isFocused && { borderColor: theme.colors.secondary.DEFAULT }, // Change border color on focus
         ]}
       >
         <TextInput
           style={styles.input}
           value={value}
           placeholder={placeholder}
-          placeholderTextColor="#999"
           secureTextEntry={title === 'Password' && !showPassword}
           onChangeText={handleChangeText}
           onFocus={() => setIsFocused(true)} // Set focus state to true
@@ -65,23 +64,24 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontWeight: '600',
-    color: theme.colors.white.DEFAULT,
+    color: theme.colors.secondary.DEFAULT,
     marginBottom: 8,
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: theme.colors.black[200], 
+    borderColor: theme.colors.secondary[100], 
     borderRadius: 8,
     paddingHorizontal: 12,
-    backgroundColor: theme.colors.black[100],
+    backgroundColor: theme.colors.white.DEFAULT,
   },
   input: {
     flex: 1,
     height: 50,
     fontSize: 16,
-    color: theme.colors.white.DEFAULT,
+    fontFamily: 'Poppins-Regular',
+    color: theme.colors.gray,
   },
   toggleButton: {
     marginLeft: 8,

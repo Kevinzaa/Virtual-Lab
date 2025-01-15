@@ -43,12 +43,11 @@ const SignUp = () => {
     <SafeAreaView style={{backgroundColor:theme.colors.primary, height:'100%'}}>
       <ScrollView>
         <View style={styles.container}>
-          <Image
-            source={images.logo}
-            style={styles.logo}
-          />
+          <Text style={{fontSize: 30, color: theme.colors.secondary.DEFAULT, fontFamily:'Poppins-Bold'}}>
+            SmartLab
+          </Text>
           <Text style={styles.text}>
-            Sign up to Aora
+            Sign up to SmartLab
           </Text>
           <FormField
             title = "Username"
@@ -79,10 +78,10 @@ const SignUp = () => {
           />
 
           <View style={{justifyContent:'center', paddingTop:10, flexDirection:'row', gap:2}}>
-            <Text style={{color:theme.colors.gray[100], fontSize:15, fontFamily:'Poppins-Regular'}}>
+            <Text style={{color:theme.colors.black.DEFAULT, fontSize:15, fontFamily:'Poppins-Regular'}}>
               Already have account? {''}
             </Text>
-            <Link href="/sign-in" style={{color:theme.colors.secondary.DEFAULT, fontSize:15, fontFamily:'Poppins-Regular'}}>
+            <Link href="/sign-in" style={{color:theme.colors.secondary[200], fontSize:15, fontFamily:'Poppins-SemiBold'}}>
               Sign In
             </Link>
           </View>
@@ -97,7 +96,7 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',          
     justifyContent: 'center', 
-    minHeight: '85%',    
+    minHeight: '90%',    
     paddingHorizontal: 16, 
     marginVertical: 24,     
   },
@@ -108,7 +107,7 @@ const styles = StyleSheet.create({
   },
   text:{
     fontSize:22,
-    color: theme.colors.white.DEFAULT,
+    color: theme.colors.black.DEFAULT,
     fontFamily: 'Poppins-SemiBold',
     marginTop:30,
   }
