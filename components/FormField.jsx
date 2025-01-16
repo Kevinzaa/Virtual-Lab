@@ -29,6 +29,7 @@ const SearchInput = ({
           style={styles.input}
           value={value}
           placeholder={placeholder}
+          placeholderTextColor= "#9e9e9e"
           secureTextEntry={title === 'Password' && !showPassword}
           onChangeText={handleChangeText}
           onFocus={() => setIsFocused(true)} // Set focus state to true
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
     height: 50,
     fontSize: 16,
     fontFamily: 'Poppins-Regular',
-    color: theme.colors.gray,
+    color: theme.colors.secondary.DEFAULT,
   },
   toggleButton: {
     marginLeft: 8,

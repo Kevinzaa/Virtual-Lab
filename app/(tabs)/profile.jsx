@@ -68,8 +68,8 @@ const Profile = () => {
 
         ListEmptyComponent={() => (
           <EmptyState
-            title = "No videos found"
-            subtitle = "Tidak ada video yang cocok dengan kata kunci pencarian"
+            title = "Kamu tidak punya video"
+            subtitle = "ayo mulai upload video sekarang!"
           />
         )}
       />

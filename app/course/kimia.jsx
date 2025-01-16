@@ -64,8 +64,8 @@ const Kimia = () => {
 
             {/* Content Section */}
             <View style={styles.content}>
-              <Text style={styles.title}>Kimia Dasar</Text> {/* Pastikan teks dibungkus dengan <Text> */}
-              <Text style={styles.subtitle}> {/* Pastikan teks dibungkus dengan <Text> */}
+              <Text style={styles.title}>Kimia Dasar</Text> 
+              <Text style={styles.subtitle}> 
                 Pelajari konsep dasar ilmu kimia melalui video-video interaktif dan
                 informatif!
               </Text>
@@ -74,7 +74,7 @@ const Kimia = () => {
         }
         ListEmptyComponent={() => (
           <View style={styles.emptyState}>
-            <Text style={styles.emptyText}> {/* Pastikan teks dibungkus dengan <Text> */}
+            <Text style={styles.emptyText}> 
               Belum ada video terkait Kimia
             </Text>
           </View>

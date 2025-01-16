@@ -10,10 +10,10 @@ const EmptyState = ({title, subtitle}) => {
     <View style={{justifyContent:'center', alignItems:'center', paddingHorizontal:8}}>
       <Image source={images.empty}
       style = {{resizeMode:'contain', width:270, height:215}}/>
-        <Text style={{fontFamily:'Poppins-SemiBold', color:theme.colors.white.DEFAULT, fontSize:24}}>
+        <Text style={{fontFamily:'Poppins-SemiBold', color:theme.colors.secondary.DEFAULT, fontSize:24}}>
             {title}
         </Text>
-        <Text style={{fontFamily:'Poppins-Medium', color:theme.colors.gray[100], fontSize:14}}>
+        <Text style={{fontFamily:'Poppins-Medium', color:theme.colors.secondary.DEFAULT, fontSize:14}}>
             {subtitle}
         </Text>
 

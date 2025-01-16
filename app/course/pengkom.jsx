@@ -13,19 +13,17 @@ import {
 import theme from '../../style';
 import VideoCard from '../../components/VideoCard';
 import useAppWrite from '../../lib/useAppWrite';
-import { getAllPosts } from '../../lib/appwrite'; // Memastikan data diambil dari API
+import { getAllPosts } from '../../lib/appwrite';
 import { icons, images } from '../../constants';
 import { router } from 'expo-router';
 
-const Pengkom = () => {
-  const { data: posts, refetch } = useAppWrite(getAllPosts); // Mendapatkan semua post
+const Kimia = () => {
+  const { data: posts, refetch } = useAppWrite(getAllPosts);
   const [refreshing, setRefreshing] = useState(false);
 
-  // Filter video yang terkait dengan "Kimia"
   const filteredVideos =
     posts?.filter((post) => post.title.toLowerCase().includes('komputasi')) ?? [];
 
-  // Fungsi untuk refresh data
   const onRefresh = async () => {
     setRefreshing(true);
     await refetch();
@@ -34,55 +32,54 @@ const Pengkom = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header Section */}
-      <View style={styles.header}>
-        <ImageBackground
-          source={images.python} // Ganti dengan foto yang Anda gunakan
-          style={styles.backgroundImage}
-          resizeMode="cover" // Atur agar gambar sesuai dengan ukuran container
-        >
-          <TouchableOpacity
-            style={styles.backButton}
-            onPress={() => router.push('/')}
-          >
-            <Image
-              source={icons.leftArrow}
-              style={styles.backIcon}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
-        </ImageBackground>
-      </View>
-
       {/* Content Section */}
-      <View style={styles.content}>
-        {/* Title */}
-        <Text style={styles.title}>Pengenalan Komputasi</Text>
+      <FlatList
+        data={filteredVideos}
+        keyExtractor={(item) => item.$id}
+        renderItem={({ item }) => <VideoCard video={item} />}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+        ListHeaderComponent={
+          <View>
+            {/* Header Section */}
+            <View style={styles.header}>
+              <ImageBackground
+                source={images.python}
+                style={styles.backgroundImage}
+                resizeMode="cover"
+              >
+                <TouchableOpacity
+                  style={styles.backButton}
+                  onPress={() => router.push('/')}
+                >
+                  <Image
+                    source={icons.leftArrow}
+                    style={styles.backIcon}
+                    resizeMode="contain"
+                  />
+                </TouchableOpacity>
+              </ImageBackground>
+            </View>
 
-        {/* Subtitle */}
-        <Text style={styles.subtitle}>
-          Pelajari konsep dasar ilmu kimia melalui video-video interaktif dan
-          informatif!
-        </Text>
-
-        {/* Video List */}
-        <FlatList
-          style={{ marginTop: 10 }}
-          data={filteredVideos}
-          keyExtractor={(item) => item.$id} // Gunakan $id sebagai key
-          renderItem={({ item }) => <VideoCard video={item} />}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }
-          ListEmptyComponent={() => (
-            <View style={styles.emptyState}>
-              <Text style={styles.emptyText}>
-                Belum ada video terkait Pengenalan Komputasi
+            {/* Content Section */}
+            <View style={styles.content}>
+              <Text style={styles.title}>Pengenalan Komputasi</Text> 
+              <Text style={styles.subtitle}> 
+                Pelajari konsep dasar ilmu komputasi melalui video-video interaktif dan
+                informatif!
               </Text>
             </View>
-          )}
-        />
-      </View>
+          </View>
+        }
+        ListEmptyComponent={() => (
+          <View style={styles.emptyState}>
+            <Text style={styles.emptyText}> 
+              Belum ada video terkait Pengkom
+            </Text>
+          </View>
+        )}
+      />
     </SafeAreaView>
   );
 };
@@ -93,13 +90,13 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.primary,
   },
   header: {
-    height: 250, // Tinggi header
-    overflow: 'hidden', // Agar gambar mengikuti radius
+    height: 200,
+    overflow: 'hidden',
   },
   backgroundImage: {
-    flex: 1, // Agar gambar menutupi seluruh area header
-    justifyContent: 'center', // Memastikan konten berada di tengah secara vertikal
-    alignItems: 'center', // Memastikan konten berada di tengah secara horizontal
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   backButton: {
     position: 'absolute',
@@ -140,4 +137,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Pengkom;
+export default Kimia;
