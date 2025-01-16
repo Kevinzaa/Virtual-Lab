@@ -84,7 +84,7 @@ const Create = () => {
         <FormField
           title = "Video title"
           value = {form.title}
-          placeholder= "Give your video a catch title"
+          placeholder= "Masukkan judul video mu"
           handleChangeText={(e) => setForm({ ...form,
             title: e
           })}
@@ -159,7 +159,7 @@ const Create = () => {
         <FormField
           title = "Description"
           value = {form.prompt}
-          placeholder= "Description of the video"
+          placeholder= "Deskripsi video"
           handleChangeText={(e) => setForm({ ...form,
             prompt: e
           })}

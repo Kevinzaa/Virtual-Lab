@@ -30,7 +30,7 @@ export default function App() {
         <View style={styles.glassmorphismContainer}>
           <Glassmorphism>
             <Text style={styles.text}>
-              Discover Endless{'\n'}Possibilities with{' '}
+              Unlock the wonders of science with {' '}
               <Text
                 style={{
                   color: theme.colors.secondary.DEFAULT,
@@ -50,8 +50,7 @@ export default function App() {
                 textAlign: "center",
               }}
             >
-              Where creativity meets innovation: embark on a journey
-              of limitless exploration with Aora
+              Where curiosity ignites discovery—step into a world of boundless knowledge with SmartLab.
             </Text>
             <CustomButton
               title="Continue with Email"

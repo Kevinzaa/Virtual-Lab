@@ -9,5 +9,7 @@ import itb from "../assets/images/itb.jpg";
 import python from "../assets/images/python.jpg";
 import kimia from "../assets/images/Kimia.jpg";
 import fisika from "../assets/images/fisika.jpg";
+import chemistry from "../assets/images/chemistry.png";
+import chemistry1 from "../assets/images/chemistry1.png";
 
-export default { profile, thumbnail, cards, path, logo, logoSmall, empty, itb, python, kimia, fisika };
+export default { profile, thumbnail, cards, path, logo, logoSmall, empty, itb, python, kimia, fisika, chemistry, chemistry1 };

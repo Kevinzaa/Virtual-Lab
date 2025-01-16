@@ -14,6 +14,7 @@ import CustomButton from "../../components/CustomButton";
 import CourseCard from "../../components/CourseCard"; // Import CourseCard
 import { router } from "expo-router";
 import { useGlobalContext } from "../../context/GlobalProvider";
+import * as Device from 'expo-device';
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
@@ -21,11 +22,9 @@ const Home = () => {
 
   const onRefresh = async () => {
     setRefreshing(true);
-    // Call refetch or any other logic
     setRefreshing(false);
   };
 
-  // Get current date
   const today = new Date();
   const formattedDate = today.toLocaleDateString("en-US", {
     weekday: "long",
@@ -40,9 +39,10 @@ const Home = () => {
         contentContainerStyle={{ paddingHorizontal: 16, paddingVertical: 20 }}
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
       >
+        
         {/* Header Section */}
         <View style={{ marginBottom: 20, marginTop: 40 }}>
-          <Text style={{ fontFamily: "Poppins-Medium", color: theme.colors.secondary.DEFAULT, fontSize: 14 }}>
+          <Text style={{ fontFamily: "Poppins-Medium", color: theme.colors.secondary.DEFAULT, fontSize: 14, marginBottom: -5 }}>
             Welcome Back
           </Text>
           <Text style={{ fontFamily: "Poppins-SemiBold", color: theme.colors.secondary.DEFAULT, fontSize: 24 }}>
@@ -60,8 +60,8 @@ const Home = () => {
         <SearchInput />
 
         {/* Quote Section */}
-        <View style={{ backgroundColor: theme.colors.secondary.DARK, padding: 15, borderRadius: 10, marginVertical: 20 }}>
-          <Text style={{ color: theme.colors.secondary.DEFAULT, fontFamily: "Poppins-Light", fontSize: 16 }}>
+        <View style={{ backgroundColor: theme.colors.secondary.DEFAULT, padding: 15, borderRadius: 10, marginVertical: 20 }}>
+          <Text style={{ color: theme.colors.secondary[300], fontFamily: "Poppins-Light", fontSize: 16 }}>
             "The roots of education are bitter, but the fruit is sweet." – Aristotle
           </Text>
         </View>
@@ -76,7 +76,7 @@ const Home = () => {
               marginBottom: 10,
             }}
           >
-            Recommended Courses
+            Rekomendasi Mata Kuliah
           </Text>
 
           {/* Course Cards */}
@@ -101,7 +101,7 @@ const Home = () => {
         </View>
 
         {/* Action Button */}
-        <CustomButton title="Explore Videos" handlePress={() => router.push("/(tabs)/bookmark")} isLoading={false} />
+        <CustomButton title="Explore Videos" handlePress={() => router.push("/(tabs)/video")} isLoading={false} />
       </ScrollView>
     </SafeAreaView>
   );

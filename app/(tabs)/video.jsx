@@ -10,7 +10,7 @@ import useAppWrite from '../../lib/useAppWrite'
 import VideoCard from '../../components/VideoCard'
 import { useGlobalContext } from '../../context/GlobalProvider'
 
-const Bookmark = () => {
+const Video = () => {
 
   const {data:posts, refetch} = useAppWrite(getAllPosts);
   const {data:latestPosts} = useAppWrite(getLatestPosts);
@@ -51,12 +51,18 @@ const Bookmark = () => {
             {/* <SearchInput/> */}
 
             <View style={{width:'100%', flex:1, paddingTop:5, paddingBottom:8, marginTop:-30}}>
-              <Text style={{color:theme.colors.secondary.DEFAULT, fontSize:15, fontFamily:'Poppins-Regular', marginBottom:3}}>
+              <Text style={{color:theme.colors.secondary.DEFAULT, fontSize:15, fontFamily:'Poppins-SemiBold', marginBottom:3}}>
                 Latest Videos
               </Text>
 
               <Trending posts ={latestPosts ?? []}/>
             </View>
+
+            <View style={styles.separator} />
+
+            <Text style={{color:theme.colors.secondary.DEFAULT, fontSize:15, fontFamily:'Poppins-SemiBold', marginBottom:3, marginTop:-20}}>
+                All Videos
+              </Text>
           </View>
         )}
 
@@ -81,4 +87,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Bookmark
+export default Video

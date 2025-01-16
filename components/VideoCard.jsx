@@ -4,12 +4,14 @@ import theme from '../style'
 import { icons } from '../constants'
 import { ResizeMode, Video } from 'expo-av'
 
-const VideoCard = ({video : {title, thumbnail, video, creator:{username, avatar}}}) => {
+const VideoCard = ({video : {title, thumbnail, video, prompt, creator:{username, avatar}}}) => {
 
     const [play, setPlay] = useState(false);
 
     return (
-    <View style={{flexDirection:'column', alignItems:'center', paddingHorizontal:16, marginBottom:56}}>
+    <View style={{flexDirection:'column', alignItems:'center', paddingHorizontal:16, marginBottom:56,
+         borderRadius:16, padding:16, backgroundColor:theme.colors.secondary[300], width:'100%'
+    }}>
       <View style={{flexDirection:'row', gap:12, alignItems:'flex-start'}}>
         <View style={{justifyContent:'center', alignItems:'center', flexDirection:'row', flex:1}}>
             <View style={{width:46, height:46, borderRadius:8, borderWidth:1, borderColor:theme.colors.secondary.DEFAULT,justifyContent:'center', alignItems:'center', padding:2}}>
@@ -37,6 +39,7 @@ const VideoCard = ({video : {title, thumbnail, video, creator:{username, avatar}
                 resizeMode='contain'
             />
         </View>
+
       </View>
 
 
@@ -46,7 +49,7 @@ const VideoCard = ({video : {title, thumbnail, video, creator:{username, avatar}
         style={{
             width: '100%',
             height: 240,
-            borderRadius: 35,
+            borderRadius: 10,
             marginVertical: 20,
             backgroundColor: theme.colors.black.DEFAULT,
         }}
@@ -64,7 +67,7 @@ const VideoCard = ({video : {title, thumbnail, video, creator:{username, avatar}
             style={{
                 width: '100%',
                 aspectRatio: 16 / 10, // Memastikan rasio aspek 16:9
-                borderRadius: 16,
+                borderRadius: 10,
                 marginTop: 9,
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -91,6 +94,12 @@ const VideoCard = ({video : {title, thumbnail, video, creator:{username, avatar}
             />
         </TouchableOpacity>
       )}
+
+        <View style={{ backgroundColor: theme.colors.primary, padding: 15, borderRadius: 10, marginVertical: 20, width:'100%' }}>
+          <Text style={{ color: theme.colors.secondary.DEFAULT, fontFamily: "Poppins-Light", fontSize: 16 }}>
+            {prompt}
+          </Text>
+        </View>
 
     </View>
   )

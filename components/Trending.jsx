@@ -1,5 +1,5 @@
 import { View, FlatList, TouchableOpacity, ImageBackground, Image } from 'react-native';
-import React, { useState } from 'react';
+import {React, useState, useCallback } from 'react';
 import theme from '../style';
 import * as Animatable from 'react-native-animatable';
 import { icons } from '../constants';
@@ -89,11 +89,11 @@ const TrendingItem = ({ activeItem, item }) => {
 const Trending = ({ posts }) => {
   const [activeItem, setActiveItem] = useState(posts[0]);
 
-  const viewableItemsChanged = ({ viewableItems }) => {
+  const viewableItemsChanged = useCallback(({ viewableItems }) => { // Gunakan useCallback
     if (viewableItems.length > 0) {
       setActiveItem(viewableItems[0].item);
     }
-  };
+  }, []);
 
   return (
     <FlatList
@@ -106,7 +106,7 @@ const Trending = ({ posts }) => {
       }}
       contentOffset={{ x: 170 }}
       horizontal
-      showsHorizontalScrollIndicator={false} // Menghilangkan scrollbar
+      showsHorizontalScrollIndicator={false} 
     />
   );
 };

@@ -41,12 +41,12 @@ const TabsLayout = () => {
           }}
         />
         <Tabs.Screen
-          name="bookmark"
+          name="video"
           options={{
-            title: 'Bookmark',
+            title: 'video',
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
-              <TabIcon icon={icons.bookmark} color={color} focused={focused} name="Bookmark" />
+              <TabIcon icon={icons.video} color={color} focused={focused} name="Videos" />
             ),
           }}
         />
@@ -77,7 +77,7 @@ const TabsLayout = () => {
 
 const styles = StyleSheet.create({
   tabBar: {
-    height: 60, 
+    height: 65, 
     paddingTop: 5, 
     paddingBottom: 5, 
     backgroundColor: theme.colors.secondary.DEFAULT, 
@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
     alignItems: 'center', 
     justifyContent: 'center',
     width: 70,
+    marginTop:10,
   },
   icon: {
     width: 24, 
