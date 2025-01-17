@@ -80,7 +80,7 @@ npx expo start
 - **Framework**: React Native
 - **Platform**: Expo
 - **State Management**: Context API
-- **Backend**: Appwrite (atau backend lain jika digunakan)
+- **Backend**: Appwrite
 
 ---
 
