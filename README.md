@@ -32,12 +32,15 @@ VIRTUAL-LAB
 ├── package.json              # File konfigurasi proyek Node.js
 ├── react-native.config.js    # Konfigurasi tambahan React Native
 ├── style.js                  # File untuk style global
-└── yarn.lock                 # File lock untuk Yarn dependency
+└── smartlab.apk              # FIle APK dari mobile app
 ```
 
 ---
 
 ## 🚀 Cara Menjalankan Proyek
+
+### Langkah 0: Download smartlab.APK untuk mobile atau masuk ke web
+Link web : https://grey-giraffe-229125.hostingersite.com 
 
 ### Langkah 1: Clone Repositori
 Clone repositori proyek ke komputer lokal menggunakan perintah berikut:
