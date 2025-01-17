@@ -1,88 +1,69 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, TextInput, StyleSheet, TouchableOpacity, Image, Alert } from 'react-native';
 import theme from '../style';
-import {icons} from '../constants'
-import {usePathname, router} from 'expo-router';
+import { icons } from '../constants';
+import { usePathname, router } from 'expo-router';
 
-const SearchInput = ({initialQuery}) => {
-  const pathname = usePathname()
-  const [query, setQuery] = useState(initialQuery ||'')
+const SearchInput = ({ initialQuery }) => {
+  const pathname = usePathname();
+  const [query, setQuery] = useState(initialQuery || '');
   const [isFocused, setIsFocused] = useState(false);
 
   return (
-      <View
-        style={[
-          styles.inputContainer,
-          isFocused && { borderColor: theme.colors.secondary.DEFAULT }, // Change border color on focus
-        ]}
+    <View
+      style={[
+        styles.inputContainer,
+        isFocused && { borderColor: theme.colors.secondary.DEFAULT },
+      ]}
+    >
+      <TextInput
+        style={styles.input}
+        value={query}
+        placeholder="Search for a video topic"
+        onChangeText={(e) => setQuery(e)}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
+      />
+
+      <TouchableOpacity
+        onPress={() => {
+          if (!query) {
+            return Alert.alert('Data tidak ditemukan!',
+              "Silahkan masukkan data serupa yang ingin dicari ke dalam database.",
+            );
+          }
+
+          if (pathname.startsWith('/search')) router.setParams({ query });
+          else router.push(`/search/${query}`);
+        }}
       >
-        <TextInput
-          style={styles.input}
-          value={query}
-          placeholder="Search for a video topic"
-          onChangeText={(e) => setQuery(e)}
-          onFocus={() => setIsFocused(true)} 
-          onBlur={() => setIsFocused(false)} 
+        <Image
+          source={icons.search}
+          resizeMode='contain'
+          style={{ height: 20, width: 20 }}
         />
-
-        <TouchableOpacity
-          onPress={() => {
-            if (!query) {
-              return Alert.alert('Data tidak ditemukan!',
-                "Silahkan masukkan data serupa yang ingin dicari ke dalam database.",
-              )
-            }
-
-            if (pathname.startsWith('/search')) router.setParams({query})
-            else router.push(`/search/${query}`)
-          }}
-        >
-          
-          <Image
-            source={icons.search}
-            resizeMode='contain'
-            style={{height:20, width:20}}
-          />
-        </TouchableOpacity>
-
-      </View>
+      </TouchableOpacity>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    marginBottom: 16,
-  },
-  label: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: theme.colors.secondary.DEFAULT,
-    marginBottom: 8,
-  },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: theme.colors.secondary[100], 
+    borderColor: theme.colors.secondary[100],
     borderRadius: 8,
     paddingHorizontal: 12,
     backgroundColor: theme.colors.white.DEFAULT,
+    marginBottom: 20,
   },
   input: {
-    fontSize: 16, 
-    marginTop: 2, 
-    flex: 1, 
-    fontFamily: 'Poppins-Regular', 
+    fontSize: 16,
+    marginTop: 2,
+    flex: 1,
+    fontFamily: 'Poppins-Regular',
     color: theme.colors.black.DEFAULT,
-  },
-  toggleButton: {
-    marginLeft: 8,
-  },
-  icon: {
-    width: 20, 
-    height: 20, 
-    justifyContent: 'center',
-    resizeMode: 'contain',
   },
 });
 

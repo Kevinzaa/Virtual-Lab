@@ -1,10 +1,13 @@
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, useWindowDimensions } from 'react-native';
 import React from 'react';
 import { Tabs } from 'expo-router';
 import { icons } from '../../constants';
-import theme from '../../style'
+import theme from '../../style';
 
 const TabsLayout = () => {
+  const { width: screenWidth } = useWindowDimensions();
+  const isWeb = screenWidth >= 768;
+
   const TabIcon = ({ icon, color, name, focused }) => {
     return (
       <View style={styles.iconContainer}>
@@ -25,7 +28,7 @@ const TabsLayout = () => {
       <Tabs
         screenOptions={{
           tabBarShowLabel: false,
-          tabBarStyle: styles.tabBar,
+          tabBarStyle: [styles.tabBar, isWeb && styles.webTabBar],
           tabBarActiveTintColor: theme.colors.primary,
           tabBarInactiveTintColor: theme.colors.tabbaroff,
         }}
@@ -84,16 +87,21 @@ const styles = StyleSheet.create({
     borderTopWidth: 0,
     borderTopColor: '#232533',
   },
+  webTabBar: {
+    // Adjustments for web view
+    height: 80, // Increase height for better touch area on web
+    paddingHorizontal: 40, // Add padding for larger screens
+  },
   iconContainer: {
     alignItems: 'center', 
     justifyContent: 'center',
     width: 70,
-    marginTop:10,
+    marginTop: 10,
   },
   icon: {
     width: 24, 
     height: 24,
-    marginTop:15,
+    marginTop: 15,
   },
   text: {
     fontSize: 10, 

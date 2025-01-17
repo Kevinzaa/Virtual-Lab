@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, Dimensions } from 'react-native';
 import theme from '../style';
+import { useWindowDimensions } from 'react-native';
 
-const SearchInput = ({
+const FormField = ({
   title,
   value,
   placeholder,
@@ -11,35 +12,33 @@ const SearchInput = ({
   ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [isFocused, setIsFocused] = useState(false); // State to track focus
-  const screenWidth = Dimensions.get('window').width;
+  const [isFocused, setIsFocused] = useState(false);
+  const { width: screenWidth } = useWindowDimensions();
+  const isWeb = screenWidth >= 768;
 
   return (
-    <View style={[styles.container, otherStyles]}>
-      {/* Label */}
-      <Text style={styles.label}>{title}</Text>
+    <View style={[styles.container, otherStyles, isWeb && styles.webContainer]}>
+      <Text style={[styles.label, isWeb && styles.webLabel]}>{title}</Text>
 
-      {/* Input Field */}
       <View
         style={[
           styles.inputContainer,
           isFocused && { borderColor: theme.colors.secondary.DEFAULT },
-          { width: '100%' },
+          isWeb && styles.webInputContainer,
         ]}
       >
         <TextInput
-          style={styles.input}
+          style={[styles.input, isWeb && styles.webInput]}
           value={value}
           placeholder={placeholder}
           placeholderTextColor= "#9e9e9e"
           secureTextEntry={title === 'Password' && !showPassword}
           onChangeText={handleChangeText}
-          onFocus={() => setIsFocused(true)} // Set focus state to true
-          onBlur={() => setIsFocused(false)} // Set focus state to false
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
           {...props}
         />
 
-        {/* Show/Hide Password Button */}
         {title === 'Password' && (
           <TouchableOpacity
             style={styles.toggleButton}
@@ -64,11 +63,17 @@ const styles = StyleSheet.create({
   container: {
     marginBottom: 16,
   },
+  webContainer: {
+    marginBottom: 24,
+  },
   label: {
     fontSize: 16,
     fontWeight: '600',
     color: theme.colors.secondary.DEFAULT,
     marginBottom: 8,
+  },
+  webLabel: {
+    fontSize: 20,
   },
   inputContainer: {
     flexDirection: 'row',
@@ -79,12 +84,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     backgroundColor: theme.colors.white.DEFAULT,
   },
+  webInputContainer: {
+    borderWidth: 3,
+    paddingHorizontal: 16,
+  },
   input: {
     flex: 1,
     height: 50,
     fontSize: 16,
     fontFamily: 'Poppins-Regular',
     color: theme.colors.secondary.DEFAULT,
+  },
+  webInput: {
+    height: 60,
+    fontSize: 18,
   },
   toggleButton: {
     marginLeft: 8,
@@ -97,4 +110,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SearchInput;
+export default FormField;

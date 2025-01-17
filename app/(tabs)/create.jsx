@@ -1,9 +1,9 @@
-import { View, Text, ScrollView, TouchableOpacity, Image, Alert, StyleSheet } from 'react-native'
-import { React, useState } from 'react'
+import { View, Text, ScrollView, TouchableOpacity, Image, Alert, StyleSheet, useWindowDimensions } from 'react-native'
+import React, { useState } from 'react'
 import {SafeAreaView} from 'react-native-safe-area-context'
 import FormField from '../../components/FormField'
 import theme from '../../style'
-import {Video,ResizeMode} from 'expo-av'
+import {Video, ResizeMode} from 'expo-av'
 import { icons } from '../../constants'
 import CustomButton from '../../components/CustomButton'
 import * as DocumentPicker from 'expo-document-picker';
@@ -13,6 +13,9 @@ import { createVideo } from '../../lib/appwrite'
 import { useGlobalContext } from '../../context/GlobalProvider'
 
 const Create = () => {
+
+  const { width: screenWidth } = useWindowDimensions();
+  const isWeb = screenWidth >= 768;
 
   const {user} = useGlobalContext();
 
@@ -46,7 +49,7 @@ const Create = () => {
 
   const submit = async () => {
     if (!form.prompt || !form.title || !form.thumbnail || !form.video){
-      return Alert.alert("Pleade fill in all the fields")
+      return Alert.alert("Please fill in all the fields")
     }
 
     setUploading(true);
@@ -72,10 +75,10 @@ const Create = () => {
   }
 
   return (
-    <SafeAreaView style={{backgroundColor:theme.colors.primary, height:'100%'}}>
-      <ScrollView style={{paddingHorizontal:16, paddingVertical:24}}>
+    <SafeAreaView style={{backgroundColor: theme.colors.primary, height: '100%'}}>
+      <ScrollView style={{ paddingHorizontal: isWeb ? 40 : 16, paddingVertical: 24 }}>
         
-        <Text style={{fontSize:24, color:theme.colors.secondary.DEFAULT, fontFamily:'Poppins-SemiBold'}}>
+        <Text style={[styles.title, isWeb && styles.webTitle]}>
           Upload Video
         </Text>
 
@@ -85,14 +88,12 @@ const Create = () => {
           title = "Video title"
           value = {form.title}
           placeholder= "Masukkan judul video mu"
-          handleChangeText={(e) => setForm({ ...form,
-            title: e
-          })}
-          otherStyles = {{marginTop: 40}}
+          handleChangeText={(e) => setForm({ ...form, title: e })}
+          otherStyles = {{ marginTop: 40 }}
         />
 
-        <View style={{marginTop:14, marginVertical:4}}>
-          <Text style={{fontSize:16, color:theme.colors.secondary.DEFAULT, fontFamily:'Poppins-Medium'}}>
+        <View style={{ marginTop: 14, marginVertical: 4 }}>
+          <Text style={[styles.subtitle, isWeb && styles.webSubtitle]}>
             Upload Video
           </Text>
 
@@ -100,16 +101,16 @@ const Create = () => {
             {form.video ? (
               <Video 
                 source={{uri : form.video.uri}}
-                style={{width:'100%', height:'256', borderWidth:10, borderColor:theme.colors.black[100]}}
+                style={[styles.video, isWeb && styles.webVideo]}
                 resizeMode={ResizeMode.COVER}
               />
             ) : (
-              <View style={{width:'100%', height:160, paddingHorizontal:8, backgroundColor:theme.colors.white.DEFAULT, borderColor:theme.colors.secondary[100], borderWidth:1, borderRadius:12, justifyContent:'center', alignItems:'center'}}>
-                <View style={{width:56, height:56, borderWidth:1, borderStyle:'dashed', borderColor:theme.colors.secondary.DEFAULT, justifyContent:'center', alignItems:'center', borderRadius:12}}>
+              <View style={[styles.uploadContainer, isWeb && styles.webUploadContainer]}>
+                <View style={styles.uploadIconContainer}>
                   <Image 
                     source = {icons.upload}
                     resizeMode = "contain"
-                    style = {{width:35, height:35}}
+                    style = {{width: 35, height: 35}}
                   />
                 </View>
               </View>
@@ -117,8 +118,8 @@ const Create = () => {
           </TouchableOpacity>
         </View>
 
-        <View style={{marginTop:28, paddingVertical:8}}>
-          <Text style={{fontSize:16, color:theme.colors.secondary.DEFAULT, fontFamily:'Poppins-Medium'}}>
+        <View style={{ marginTop: 28, paddingVertical: 8 }}>
+          <Text style={[styles.subtitle, isWeb && styles.webSubtitle]}>
             Thumbnail Image
           </Text>
 
@@ -127,28 +128,16 @@ const Create = () => {
               <Image 
                 source={{uri: form.thumbnail.uri}}
                 resizeMode='cover'
-                style={{width:'100%', height:256, borderRadius:12}}
+                style={[styles.thumbnail, isWeb && styles.webThumbnail]}
               />
             ) : (
-              <View style={
-                {
-                  width: '100%',      
-                  height: 64,         
-                  paddingHorizontal: 16, 
-                  backgroundColor: theme.colors.white.DEFAULT, 
-                  borderRadius: 16,    
-                  justifyContent: 'center', 
-                  alignItems: 'center',     
-                  borderWidth: 1,    
-                  borderColor: theme.colors.secondary[100], 
-                  flexDirection: 'row', 
-                }}>
+              <View style={[styles.chooseFileContainer, isWeb && styles.webChooseFileContainer]}>
                 <Image 
                   source = {icons.upload}
                   resizeMode = "contain"
-                  style = {{width:20, height:20}}
+                  style = {{width: 20, height: 20}}
                 />
-                <Text style={{fontSize:16, color:"#6d6d6d", fontFamily:"Poppins-Regular", marginLeft:10}}>
+                <Text style={styles.chooseFileText}>
                   Choose a file
                 </Text>
               </View>
@@ -160,16 +149,14 @@ const Create = () => {
           title = "Description"
           value = {form.prompt}
           placeholder= "Deskripsi video"
-          handleChangeText={(e) => setForm({ ...form,
-            prompt: e
-          })}
-          otherStyles = {{marginTop: 28}}
+          handleChangeText={(e) => setForm({ ...form, prompt: e })}
+          otherStyles = {{ marginTop: 28 }}
         />
 
         <CustomButton
          title="Submit and Publish"
          handlePress={submit}
-         containerStyles = {{marginTop: 28, marginBottom:50}}
+         containerStyles = {{ marginTop: 28, marginBottom: 50 }}
          isLoading={uploading}
         />
         
@@ -180,10 +167,88 @@ const Create = () => {
 
 const styles = StyleSheet.create({
   separator: {
-    height: 1, // Menentukan tinggi garis
-    backgroundColor: theme.colors.secondary[200], // Warna garis
-    marginVertical: 20, // Jarak di atas dan bawah garis
+    height: 1,
+    backgroundColor: theme.colors.secondary[200],
+    marginVertical: 20,
+  },
+  title: {
+    fontSize: 24,
+    color: theme.colors.secondary.DEFAULT,
+    fontFamily: 'Poppins-SemiBold',
+  },
+  webTitle: {
+    fontSize: 36,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: theme.colors.secondary.DEFAULT,
+    fontFamily: 'Poppins-Medium',
+  },
+  webSubtitle: {
+    fontSize: 20,
+  },
+  video: {
+    width: '100%',
+    height: 256,
+    borderWidth: 10,
+    borderColor: theme.colors.black[100],
+  },
+  webVideo: {
+    height: 384,
+  },
+  uploadContainer: {
+    width: '100%',
+    height: 160,
+    paddingHorizontal: 8,
+    backgroundColor: theme.colors.white.DEFAULT,
+    borderColor: theme.colors.secondary[100],
+    borderWidth: 1,
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  webUploadContainer: {
+    height: 240,
+  },
+  uploadIconContainer: {
+    width: 56,
+    height: 56,
+    borderWidth: 1,
+    borderStyle: 'dashed',
+    borderColor: theme.colors.secondary.DEFAULT,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 12,
+  },
+  thumbnail: {
+    width: '100%',
+    height: 256,
+    borderRadius: 12,
+  },
+  webThumbnail: {
+    height: 384,
+  },
+  chooseFileContainer: {
+    width: '100%',      
+    height: 64,         
+    paddingHorizontal: 16, 
+    backgroundColor: theme.colors.white.DEFAULT, 
+    borderRadius: 16,    
+    justifyContent: 'center', 
+    alignItems: 'center',     
+    borderWidth: 1,    
+    borderColor: theme.colors.secondary[100], 
+    flexDirection: 'row', 
+  },
+  webChooseFileContainer: {
+    height: 80,
+  },
+  chooseFileText: {
+    fontSize: 16,
+    color: "#6d6d6d",
+    fontFamily: "Poppins-Regular",
+    marginLeft: 10,
   },
 });
 
-export default Create
+export default Create;
