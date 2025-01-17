@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, Dimensions } from 'react-native';
 import theme from '../style';
+
+const screenWidth = Dimensions.get('window').width;
 
 const SearchInput = ({
   title,
@@ -8,36 +10,34 @@ const SearchInput = ({
   placeholder,
   handleChangeText,
   otherStyles,
+  keyboardType,
   ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [isFocused, setIsFocused] = useState(false); // State to track focus
+  const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <View style={[styles.container, otherStyles]}>
-      {/* Label */}
+    <View style={[styles.container, otherStyles, { width: '100%', alignItems: 'center' }]}>
       <Text style={styles.label}>{title}</Text>
-
-      {/* Input Field */}
       <View
         style={[
           styles.inputContainer,
-          isFocused && { borderColor: theme.colors.secondary.DEFAULT }, // Change border color on focus
+          isFocused && { borderColor: theme.colors.secondary.DEFAULT },
+          { width: screenWidth > 768 ? 300 : '90%' },
         ]}
       >
         <TextInput
           style={styles.input}
           value={value}
           placeholder={placeholder}
-          placeholderTextColor= "#9e9e9e"
+          placeholderTextColor="#9e9e9e"
           secureTextEntry={title === 'Password' && !showPassword}
           onChangeText={handleChangeText}
-          onFocus={() => setIsFocused(true)} // Set focus state to true
-          onBlur={() => setIsFocused(false)} // Set focus state to false
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          keyboardType={keyboardType || 'default'}
           {...props}
         />
-
-        {/* Show/Hide Password Button */}
         {title === 'Password' && (
           <TouchableOpacity
             style={styles.toggleButton}
@@ -46,8 +46,8 @@ const SearchInput = ({
             <Image
               source={
                 showPassword
-                  ? require('../assets/icons/eye-hide.png') 
-                  : require('../assets/icons/eye.png') 
+                  ? require('../assets/icons/eye-hide.png')
+                  : require('../assets/icons/eye.png')
               }
               style={styles.icon}
             />
@@ -61,18 +61,20 @@ const SearchInput = ({
 const styles = StyleSheet.create({
   container: {
     marginBottom: 16,
+    alignItems: 'center',
   },
   label: {
     fontSize: 16,
     fontWeight: '600',
     color: theme.colors.secondary.DEFAULT,
     marginBottom: 8,
+    alignSelf: 'flex-start',
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: theme.colors.secondary[100], 
+    borderColor: theme.colors.secondary[100],
     borderRadius: 8,
     paddingHorizontal: 12,
     backgroundColor: theme.colors.white.DEFAULT,
@@ -88,8 +90,8 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   icon: {
-    width: 20, 
-    height: 20, 
+    width: 20,
+    height: 20,
     justifyContent: 'center',
     resizeMode: 'contain',
   },
