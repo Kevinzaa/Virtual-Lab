@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: theme.colors.secondary[100], 
     borderRadius: 8,
     paddingHorizontal: 12,
