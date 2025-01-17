@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, Dimensions } from 'react-native';
 import theme from '../style';
 
 const SearchInput = ({
@@ -12,6 +12,7 @@ const SearchInput = ({
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isFocused, setIsFocused] = useState(false); // State to track focus
+  const screenWidth = Dimensions.get('window').width;
 
   return (
     <View style={[styles.container, otherStyles]}>
@@ -23,7 +24,7 @@ const SearchInput = ({
         style={[
           styles.inputContainer,
           isFocused && { borderColor: theme.colors.secondary.DEFAULT },
-          { width: screenWidth > 768 ? 300 : '90%' },
+          { width: '100%' },
         ]}
       >
         <TextInput
