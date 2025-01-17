@@ -24,7 +24,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon_white.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.jsm.virtuallab"
@@ -34,7 +34,7 @@
       "build": {
         "output": "static"
       },
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/icon_white.png"
     },
     "extra": {
       "eas": {
