@@ -1,6 +1,7 @@
 {
   "expo": {
-    "name": "VirtualLab",
+    "name": "virtuallab",
+    "scheme": "virtuallab",
     "slug": "virtuallab",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -38,12 +39,20 @@
     },
     "extra": {
       "eas": {
-        "projectId": "your-eas-project-id-here"
+        "projectId": "16abf549-8e63-41c7-bca2-40ca7f5b98cd"
+      },
+      "router": {
+        "origin": false
       }
     },
     "plugins": [
       "expo-router"
     ],
-    "platforms": ["ios", "android", "web"]
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "owner": "kevinza"
   }
 }
