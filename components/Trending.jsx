@@ -49,11 +49,6 @@ const TrendingItem = ({ activeItem, item, isWeb }) => {
             style={[styles.trendingImage, isWeb && styles.webTrendingImage]}
             resizeMode="cover"
           >
-            <Image
-              source={icons.play}
-              style={[styles.playIcon, isWeb && styles.webPlayIcon]}
-              resizeMode="contain"
-            />
           </ImageBackground>
         </TouchableOpacity>
       )}

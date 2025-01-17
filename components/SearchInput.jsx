@@ -19,7 +19,7 @@ const SearchInput = ({ initialQuery }) => {
       <TextInput
         style={styles.input}
         value={query}
-        placeholder="Search for a video topic"
+        placeholder="ex : kimia/fisika/komputasi"
         onChangeText={(e) => setQuery(e)}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}

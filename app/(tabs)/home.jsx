@@ -72,7 +72,7 @@ const Home = () => {
         {/* Recommended Courses Section */}
         <View style={{ marginBottom: 20 }}>
           <Text style={[styles.recommendationTitle, isWeb && styles.webRecommendationTitle]}>
-            Rekomendasi Mata Kuliah
+            Mata Kuliah
           </Text>
 
           {/* Course Cards */}
@@ -143,6 +143,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.secondary.DEFAULT,
     padding: 15,
     borderRadius: 10,
+    marginTop: 5,
     marginVertical: 20,
   },
   webQuoteContainer: {

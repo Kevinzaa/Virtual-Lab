@@ -12,7 +12,7 @@ import eyeHide from "../assets/icons/eye-hide.png";
 import eye from "../assets/icons/eye.png";
 import play from "../assets/icons/play.png";
 import video from "../assets/icons/video.png";
-import back from "../assets/icons/back.png";
+import back from "../assets/icons/back_black.png";
 
 export default {
   play,
@@ -29,4 +29,5 @@ export default {
   eyeHide,
   eye,
   video,
+  back
 };

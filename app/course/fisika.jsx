@@ -9,6 +9,7 @@ import {
   Image,
   RefreshControl,
   ImageBackground,
+  useWindowDimensions
 } from 'react-native';
 import theme from '../../style';
 import VideoCard from '../../components/VideoCard';
@@ -17,7 +18,10 @@ import { getAllPosts } from '../../lib/appwrite';
 import { icons, images } from '../../constants';
 import { router } from 'expo-router';
 
-const Kimia = () => {
+const Fisika = () => {
+  const { width: screenWidth } = useWindowDimensions();
+  const isWeb = screenWidth >= 768;
+
   const { data: posts, refetch } = useAppWrite(getAllPosts);
   const [refreshing, setRefreshing] = useState(false);
 
@@ -32,17 +36,15 @@ const Kimia = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Content Section */}
       <FlatList
         data={filteredVideos}
         keyExtractor={(item) => item.$id}
-        renderItem={({ item }) => <VideoCard video={item} />}
+        renderItem={({ item }) => <VideoCard video={item} isWeb={isWeb} />}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
         ListHeaderComponent={
           <View>
-            {/* Header Section */}
             <View style={styles.header}>
               <ImageBackground
                 source={images.fisika}
@@ -62,19 +64,17 @@ const Kimia = () => {
               </ImageBackground>
             </View>
 
-            {/* Content Section */}
             <View style={styles.content}>
-              <Text style={styles.title}>Fisika Dasar</Text> 
-              <Text style={styles.subtitle}> 
-                Pelajari konsep dasar ilmu fisika melalui video-video interaktif dan
-                informatif!
+              <Text style={[styles.title, isWeb && styles.webTitle]}>Fisika Dasar</Text>
+              <Text style={[styles.subtitle, isWeb && styles.webSubtitle]}>
+                Pelajari konsep dasar ilmu fisika melalui video-video interaktif dan informatif!
               </Text>
             </View>
           </View>
         }
         ListEmptyComponent={() => (
           <View style={styles.emptyState}>
-            <Text style={styles.emptyText}> 
+            <Text style={[styles.emptyText, isWeb && styles.webEmptyText]}>
               Belum ada video terkait Fisika
             </Text>
           </View>
@@ -120,11 +120,17 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: theme.colors.secondary.DEFAULT,
   },
+  webTitle: {
+    fontSize: 36,
+  },
   subtitle: {
     fontFamily: 'Poppins-Regular',
     fontSize: 14,
     color: theme.colors.secondary.DEFAULT,
     marginBottom: 20,
+  },
+  webSubtitle: {
+    fontSize: 18,
   },
   emptyState: {
     marginTop: 20,
@@ -135,6 +141,9 @@ const styles = StyleSheet.create({
     color: theme.colors.secondary[200],
     fontFamily: 'Poppins-Regular',
   },
+  webEmptyText: {
+    fontSize: 20,
+  },
 });
 
-export default Kimia;
+export default Fisika;
