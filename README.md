@@ -1,6 +1,3 @@
-Berikut adalah README dengan **"Cara Menjalankan Proyek"** dalam format **markdown sepenuhnya**:
-
-
 # Virtual Lab
 
 **Virtual Lab** adalah aplikasi pembelajaran interaktif berbasis React Native menggunakan Expo. Aplikasi ini dirancang untuk memberikan pengalaman belajar yang menyenangkan dan fleksibel dengan berbagai fitur seperti navigasi tab, pencarian kursus, dan autentikasi pengguna.
@@ -9,7 +6,7 @@ Berikut adalah README dengan **"Cara Menjalankan Proyek"** dalam format **markdo
 
 ## 🗂 Struktur Direktori
 
-
+```plaintext
 VIRTUAL-LAB
 ├── .expo/                    # File konfigurasi Expo
 ├── app/                      # Folder utama untuk routing dan halaman aplikasi
@@ -36,6 +33,9 @@ VIRTUAL-LAB
 ├── react-native.config.js    # Konfigurasi tambahan React Native
 ├── style.js                  # File untuk style global
 └── yarn.lock                 # File lock untuk Yarn dependency
+```
+
+---
 
 ## 🚀 Cara Menjalankan Proyek
 
@@ -98,13 +98,3 @@ npx expo start
 Untuk pengujian, gunakan emulator Android/iOS atau perangkat fisik melalui Expo Go.
 
 ---
-
-## 📄 Lisensi
-
-Proyek ini dilindungi oleh lisensi [MIT](LICENSE).
-
----
-
-## 📞 Kontak
-
-Untuk detail tambahan atau bantuan, silakan hubungi pengelola proyek melalui email atau platform komunikasi yang tersedia.
