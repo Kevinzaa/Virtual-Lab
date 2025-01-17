@@ -1,7 +1,6 @@
 {
   "expo": {
     "name": "VirtualLab",
-    "scheme": "virtuallab",
     "slug": "virtuallab",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -13,21 +12,38 @@
       "resizeMode": "contain",
       "backgroundColor": "#1f263c"
     },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.jsm.virtuallab"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package" : "com.jsm.studifit"
+      "package": "com.jsm.virtuallab"
     },
     "web": {
+      "bundler": "metro",
+      "build": {
+        "output": "static"
+      },
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "your-eas-project-id-here"
+      }
     },
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "platforms": ["ios", "android", "web"]
   }
 }
